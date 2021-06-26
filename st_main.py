@@ -3,6 +3,8 @@ import os
 import matplotlib.image as mpimg
 import streamlit as st
 
+import color
+
 PATH_TO_TEST_IMAGES = "./images"
 NO_CHOICE = "---"
 
@@ -30,6 +32,7 @@ def get_processed_image(raw_image):
 def main():
     st.sidebar.subheader("Load Image")
     image_file_uploaded = st.sidebar.file_uploader("Upload an image", type="png")
+    image_file_uploaded
     st.sidebar.text("OR")
     image_file_chosen = st.sidebar.selectbox(
         "Select an existing image", get_list_of_images()
@@ -58,12 +61,14 @@ def main():
             st.image(image, use_column_width=True)
 
     if image_file and button:
-        st.markdown(f"Ahora viene la talla")
+        st.markdown(f"Processed image")
         st.image(get_processed_image(image_file))
         st.markdown(f"## Metrics results:")
         st.markdown(f"### PSNR: **{12.32}**")
+        st.markdown(f"### SSIM: **{12.32}**")
     else:
         st.markdown(f"# First load an image")
 
 
-main()
+if __name__ == "__main__":
+    main()
