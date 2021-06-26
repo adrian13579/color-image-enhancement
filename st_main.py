@@ -1,11 +1,10 @@
-import numpy as np
-import streamlit as st
 from PIL import Image
-
+import numpy as np
 import pywt
+import streamlit as st
 
-import metrics
 from color import enhance_image
+import metrics
 
 st.sidebar.title("Contrast Enhancement")
 
@@ -24,9 +23,10 @@ def main():
     button = st.sidebar.button("Load")
 
     st.sidebar.subheader("Parameter Tunning")
-    alpha = st.sidebar.slider("alpha", min_value=0.0, max_value=1.0, step=0.01)
-    wj = st.sidebar.slider("wj", min_value=0, max_value=8)
-    K = st.sidebar.slider("K", min_value=0, max_value=80)
+    alpha = st.sidebar.slider("alpha", min_value=0.0,
+                              max_value=1.0, step=0.01, value=0.1)
+    wj = st.sidebar.slider("wj", min_value=0.0, max_value=8.0, value=0.8)
+    K = st.sidebar.slider("K", min_value=0, max_value=80, value=10)
     wavl = st.sidebar.selectbox('Select a wavelet', pywt.wavelist())
 
     if image_file and button:
