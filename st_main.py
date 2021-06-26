@@ -4,8 +4,8 @@ import matplotlib.image as mpimg
 import streamlit as st
 from PIL import Image
 import numpy as np
+from color import enhance_image
 
-import color
 
 PATH_TO_TEST_IMAGES = "./images"
 NO_CHOICE = "---"
@@ -30,7 +30,7 @@ def get_list_of_images():
 def get_processed_image(raw_image):
     original = get_opened_image(raw_image)
     # Put enhancement method here
-    return original
+    return enhance_image(original)
 
 
 def main():

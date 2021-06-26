@@ -47,7 +47,8 @@ def local_contrast_enhancement(d_jk,a_jk,w_j,k):
 
     
 def enhance_image(img,alpha=0.1,wj=0.5,k=10,wavelet='sym8'):
-    img = mpimg.imread(img)
+    print('begin')
+    # img = mpimg.imread(img)
     r = img[:,:,0]
     g = img[:,:,1]
     b = img[:,:,2]
