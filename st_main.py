@@ -35,7 +35,7 @@ def main():
             st.image(image, use_column_width=True)
 
         st.markdown(f"Processed image")
-        processed_image = enhance_image(image)
+        processed_image = enhance_image(image, alpha, wj, K, wavl)
         st.image(processed_image)
         st.markdown(f"## Metrics results:")
         st.markdown(
