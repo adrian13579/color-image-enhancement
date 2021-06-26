@@ -6,6 +6,8 @@ from PIL import Image
 import numpy as np
 from color import enhance_image
 
+import color
+import metrics
 
 PATH_TO_TEST_IMAGES = "./images"
 NO_CHOICE = "---"
@@ -68,10 +70,14 @@ def main():
 
     if image_file and button:
         st.markdown(f"Processed image")
-        st.image(get_processed_image(image_file))
+        original_image = get_opened_image(image_file)
+        processed_image = get_processed_image(image_file)
+        st.image(processed_image)
         st.markdown(f"## Metrics results:")
-        st.markdown(f"### PSNR: **{12.32}**")
-        st.markdown(f"### SSIM: **{12.32}**")
+        st.markdown(
+            f"### PSNR: **{metrics.calculate_psnr(original_image, processed_image)}**")
+        st.markdown(
+            f"### SSIM: **{metrics.calculate_ssim(original_image, processed_image)}**")
     else:
         st.markdown(f"# First load an image")
 
