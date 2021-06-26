@@ -28,8 +28,7 @@ def upload_image():
 
 def main():
     upload_image()
-    image_dict = get_upload_status()
-    image_file = image_dict["image"]
+    image_file = get_upload_status()["image"]
 
     if image_file is None:
         return
@@ -40,19 +39,16 @@ def main():
     K = st.sidebar.slider("K", min_value=0, max_value=80)
     wavl = st.sidebar.selectbox("Select a wavelet", pywt.wavelist())
 
-    if image_file:
-        image = get_opened_image(image_file)
-        with st.beta_expander("Selected Image", expanded=True):
-            st.image(image, use_column_width=True)
+    image = get_opened_image(image_file)
+    with st.beta_expander("Selected Image", expanded=True):
+        st.image(image, use_column_width=True)
 
-        st.markdown(f"Processed image")
-        processed_image = enhance_image(image, alpha, wj, K, wavl)
-        st.image(processed_image)
-        st.markdown(f"## Metrics results:")
-        st.markdown(f"### PSNR: **{metrics.calculate_psnr(image, processed_image)}**")
-        st.markdown(f"### SSIM: **{metrics.calculate_ssim(image, processed_image)}**")
-    else:
-        st.markdown(f"# First load an image")
+    st.markdown(f"Processed image")
+    processed_image = enhance_image(image, alpha, wj, K, wavl)
+    st.image(processed_image)
+    st.markdown(f"## Metrics results:")
+    st.markdown(f"### PSNR: **{metrics.calculate_psnr(image, processed_image)}**")
+    st.markdown(f"### SSIM: **{metrics.calculate_ssim(image, processed_image)}**")
 
 
 if __name__ == "__main__":
