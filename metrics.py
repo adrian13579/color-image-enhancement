@@ -4,7 +4,6 @@ import cv2.cv2 as cv2
 
 
 def calculate_psnr(img1, img2):
-    # img1 and img2 have range [0, 255]
     img1 = img1.astype(np.float64)
     img2 = img2.astype(np.float64)
     mse = np.mean((img1 - img2) ** 2)
@@ -36,13 +35,7 @@ def ssim(img1, img2):
     )
     return ssim_map.mean()
 
-
 def calculate_ssim(img1, img2):
-    """
-    calculate SSIM
-    the same outputs as MATLAB's
-    img1, img2: [0, 255]
-    """
     if not img1.shape == img2.shape:
         raise ValueError("Input images must have the same dimensions.")
     if img1.ndim == 2:

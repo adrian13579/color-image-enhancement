@@ -5,6 +5,8 @@ import streamlit as st
 from PIL import Image
 import numpy as np
 
+import color
+
 PATH_TO_TEST_IMAGES = "./images"
 NO_CHOICE = "---"
 
@@ -65,12 +67,14 @@ def main():
             st.image(image, use_column_width=True)
 
     if image_file and button:
-        st.markdown(f"Ahora viene la talla")
+        st.markdown(f"Processed image")
         st.image(get_processed_image(image_file))
         st.markdown(f"## Metrics results:")
         st.markdown(f"### PSNR: **{12.32}**")
+        st.markdown(f"### SSIM: **{12.32}**")
     else:
         st.markdown(f"# First load an image")
 
 
-main()
+if __name__ == "__main__":
+    main()
