@@ -1,6 +1,7 @@
 import os
 
 import matplotlib.image as mpimg
+import pywt
 import streamlit as st
 from PIL import Image
 import numpy as np
@@ -46,8 +47,10 @@ def main():
     button = st.sidebar.button("Load")
 
     st.sidebar.subheader("Parameter Tunning")
-    p1 = st.sidebar.slider("p1", min_value=0, max_value=100)
-    p2 = st.sidebar.slider("p2", min_value=0, max_value=100)
+    alpha = st.sidebar.slider("alpha", min_value=0.0, max_value=1.0,step=0.01)
+    wj = st.sidebar.slider("wj", min_value=0, max_value=8)
+    K = st.sidebar.slider("K", min_value=0, max_value=80)
+    wavl = st.sidebar.selectbox('Select a wavelet', pywt.wavelist())
 
     image_file = None
     if image_file_uploaded:
