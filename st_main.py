@@ -24,7 +24,7 @@ def get_upload_status():
 
 def save_image(image):
     im = Image.fromarray(image)
-    im.save(f'./images/result.jpg')
+    im.save(f'./result.jpg')
 
 
 def upload_image():
