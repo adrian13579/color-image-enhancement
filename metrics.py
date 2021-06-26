@@ -35,6 +35,7 @@ def ssim(img1, img2):
     )
     return ssim_map.mean()
 
+
 def calculate_ssim(img1, img2):
     if not img1.shape == img2.shape:
         raise ValueError("Input images must have the same dimensions.")

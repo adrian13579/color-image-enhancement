@@ -29,8 +29,7 @@ def get_list_of_images():
 
 def get_processed_image(raw_image):
     original = get_opened_image(raw_image)
-    # Put enhancement method here
-    return original
+    return color.enhance_image(original)
 
 
 def main():
