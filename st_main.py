@@ -23,7 +23,7 @@ def get_opened_image(image_file):
     if isinstance(image_file, str):
         image_path = os.path.join(PATH_TO_TEST_IMAGES, image_file)
         return fix_channels(np.array(Image.open(image_path)))
-    return (np.array(Image.open(image_file)))
+    return fix_channels(np.array(Image.open(image_file)))
 
 
 def get_list_of_images():
@@ -41,7 +41,8 @@ def get_processed_image(raw_image):
 
 def main():
     st.sidebar.subheader("Load Image")
-    image_file_uploaded = st.sidebar.file_uploader("Upload an image", type="png")
+    image_file_uploaded = st.sidebar.file_uploader(
+        "Upload an image", type="png")
     st.sidebar.text("OR")
     image_file_chosen = st.sidebar.selectbox(
         "Select an existing image", get_list_of_images()
@@ -49,7 +50,7 @@ def main():
     button = st.sidebar.button("Load")
 
     st.sidebar.subheader("Parameter Tunning")
-    alpha = st.sidebar.slider("alpha", min_value=0.0, max_value=1.0,step=0.01)
+    alpha = st.sidebar.slider("alpha", min_value=0.0, max_value=1.0, step=0.01)
     wj = st.sidebar.slider("wj", min_value=0, max_value=8)
     K = st.sidebar.slider("K", min_value=0, max_value=80)
     wavl = st.sidebar.selectbox('Select a wavelet', pywt.wavelist())
