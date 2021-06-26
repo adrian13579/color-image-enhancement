@@ -7,7 +7,6 @@ from PIL import Image
 import numpy as np
 from color import enhance_image
 
-import color
 import metrics
 
 PATH_TO_TEST_IMAGES = "./images"
@@ -16,11 +15,15 @@ NO_CHOICE = "---"
 st.sidebar.title("Contrast Enhancement")
 
 
+def fix_channels(array):
+    return array[:, :, :3]
+
+
 def get_opened_image(image_file):
     if isinstance(image_file, str):
         image_path = os.path.join(PATH_TO_TEST_IMAGES, image_file)
-        return np.array(Image.open(image_path))
-    return np.array(Image.open(image_file))
+        return fix_channels(np.array(Image.open(image_path)))
+    return (np.array(Image.open(image_file)))
 
 
 def get_list_of_images():
@@ -38,8 +41,7 @@ def get_processed_image(raw_image):
 
 def main():
     st.sidebar.subheader("Load Image")
-    image_file_uploaded = st.sidebar.file_uploader(
-        "Upload an image", type="png")
+    image_file_uploaded = st.sidebar.file_uploader("Upload an image", type="png")
     st.sidebar.text("OR")
     image_file_chosen = st.sidebar.selectbox(
         "Select an existing image", get_list_of_images()
@@ -62,12 +64,12 @@ def main():
 
     if image_file_uploaded and image_file and button:
         image = get_opened_image(image_file)
-        print('uploaded', type(image))
+        print("uploaded", type(image))
         with st.beta_expander("Selected Image", expanded=True):
             st.image(image, use_column_width=True)
     elif image_file_chosen != NO_CHOICE and image_file and button:
         image = get_opened_image(image_file)
-        print('chosen', type(image))
+        print("chosen", type(image))
         with st.beta_expander("Selected Image", expanded=True):
             st.image(image, use_column_width=True)
 
@@ -78,9 +80,11 @@ def main():
         st.image(processed_image)
         st.markdown(f"## Metrics results:")
         st.markdown(
-            f"### PSNR: **{metrics.calculate_psnr(original_image, processed_image)}**")
+            f"### PSNR: **{metrics.calculate_psnr(original_image, processed_image)}**"
+        )
         st.markdown(
-            f"### SSIM: **{metrics.calculate_ssim(original_image, processed_image)}**")
+            f"### SSIM: **{metrics.calculate_ssim(original_image, processed_image)}**"
+        )
     else:
         st.markdown(f"# First load an image")
 
