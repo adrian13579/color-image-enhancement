@@ -22,6 +22,11 @@ def get_upload_status():
     return {"image": None}
 
 
+def save_image(image):
+    im = Image.fromarray(image)
+    im.save(f'./images/result.jpg')
+
+
 def upload_image():
     image_dict = get_upload_status()
     st.sidebar.subheader("Load Image")
@@ -36,7 +41,10 @@ def main():
     if image_file is None:
         return
 
+    save_button = st.sidebar.button('Save Result')
+
     st.sidebar.subheader("Parameter Tunning")
+
     alpha = st.sidebar.slider(
         "alpha", min_value=0.0, max_value=1.0, step=0.01, value=0.1
     )
@@ -52,8 +60,13 @@ def main():
     processed_image = enhance_image(image, alpha, wj, K, wavl)
     st.image(processed_image)
     st.markdown(f"## Metrics results:")
-    st.markdown(f"### PSNR: **{metrics.calculate_psnr(image, processed_image)}**")
-    st.markdown(f"### SSIM: **{metrics.calculate_ssim(image, processed_image)}**")
+    st.markdown(
+        f"### PSNR: **{metrics.calculate_psnr(image, processed_image)}**")
+    st.markdown(
+        f"### SSIM: **{metrics.calculate_ssim(image, processed_image)}**")
+
+    if save_button and processed_image is not None:
+        save_image(processed_image)
 
 
 if __name__ == "__main__":
