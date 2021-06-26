@@ -16,15 +16,18 @@ def fix_channels(array):
 def get_opened_image(image_file):
     return fix_channels(np.array(Image.open(image_file)))
 
+
 @st.cache(allow_output_mutation=True)
 def get_upload_status():
     return {"image": None}
 
+
 def upload_image():
-    image_dict=get_upload_status()
+    image_dict = get_upload_status()
     st.sidebar.subheader("Load Image")
     image = st.sidebar.file_uploader("Upload an image", type="jpg")
-    image_dict.update({"image":image})
+    image_dict.update({"image": image})
+
 
 def main():
     upload_image()
@@ -34,9 +37,11 @@ def main():
         return
 
     st.sidebar.subheader("Parameter Tunning")
-    alpha = st.sidebar.slider("alpha", min_value=0.0, max_value=1.0, step=0.01)
-    wj = st.sidebar.slider("wj", min_value=0, max_value=8)
-    K = st.sidebar.slider("K", min_value=0, max_value=80)
+    alpha = st.sidebar.slider(
+        "alpha", min_value=0.0, max_value=1.0, step=0.01, value=0.1
+    )
+    wj = st.sidebar.slider("wj", min_value=0.0, max_value=8.0, value=0.8)
+    K = st.sidebar.slider("K", min_value=0, max_value=80, value=10)
     wavl = st.sidebar.selectbox("Select a wavelet", pywt.wavelist())
 
     image = get_opened_image(image_file)
